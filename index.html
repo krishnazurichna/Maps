@@ -1,49 +1,38 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8" />
-<title>Live Traffic - Schaumburg</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-     html, body, #map { height: 100%; width: 100%; margin: 0; }
-</style>
-<script>
-     // Zurich Center, Schaumburg, IL coordinates
-     const DEFAULT_CENTER = { lat: 42.033362, lng: -88.052403 };
-     const DEFAULT_ZOOM = 14; // zoomed in a bit tighter than city-wide
-     function initMap(center = DEFAULT_CENTER) {
-       const map = new google.maps.Map(document.getElementById("map"), {
-         center,
-         zoom: DEFAULT_ZOOM,
-         disableDefaultUI: true,
-         gestureHandling: "none",
-         keyboardShortcuts: false,
-         clickableIcons: false,
-         mapTypeId: "roadmap",
-         styles: [
-           { featureType: "poi", stylers: [{ visibility: "off" }] } // optional cleanup
-         ]
-       });
-       const trafficLayer = new google.maps.TrafficLayer();
-       trafficLayer.setMap(map);
-     }
-     // Optional geolocation (if supported on the device)
-     function init() {
-       if (navigator.geolocation) {
-         navigator.geolocation.getCurrentPosition(
-           pos => initMap({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-           ()  => initMap(DEFAULT_CENTER),
-           { timeout: 3000 }
-         );
-       } else {
-         initMap(DEFAULT_CENTER);
-       }
-     }
-     window.init = init;
-</script>
-<script async
-     src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=init">
-</script>
-</head>
-<body><div id="map"></div></body>
+  <head>
+    <title>Zurich HQ Traffic Map</title>
+    <meta charset="utf-8">
+    <style>
+      #map {
+        height: 50vh;
+        width: 100%;
+	    margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="https://urldefense.com/v3/__https://maps.googleapis.com/maps/api/js?key=__;!!G6MNE2S8Nw!l34qgaAJTvjE0NVI2VYEV3HbKYXQcV-Sg4TepDOLHjHf8XhHOTVTfkYz16MSah51Ba6zij_8YQ3sNKB_29VxXyk6I_2MJlY$ <your key>"></script>
+    <script>
+      function initMap() {
+        const zurichHQ = { lat: 42.06211824039412, lng: -88.0464056911387 }; // Location of Zurich HQ - Scahumburg Campus
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 13,
+          center: zurichHQ,
+          mapTypeId: "roadmap"
+        });
+        // Add traffic layer
+        const trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map);
+        // Optional: Add marker for Zurich HQ
+        new google.maps.Marker({
+          position: zurichHQ,
+          map: map,
+          title: "Zurich Insurance Group HQ"
+        });
+      }
+    </script>
+  </head>
+  <body onload="initMap()">
+    <div id="map"></div>
+  </body>
 </html>
