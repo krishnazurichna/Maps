@@ -1,36 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Zurich HQ Traffic Map</title>
-    <meta charset="utf-8">
-    <style>
-      #map {
-        height: 100vh;
-        width: 100%;
-      }
-    </style>
-    <script src="https://urldefense.com/v3/__https://maps.googleapis.com/maps/api/js?key=__;!!G6MNE2S8Nw!l34qgaAJTvjE0NVI2VYEV3HbKYXQcV-Sg4TepDOLHjHf8XhHOTVTfkYz16MSah51Ba6zij_8YQ3sNKB_29VxXyk6I_2MJlY$ <your key>"></script>
-    <script>
-      function initMap() {
-        const zurichHQ = { lat: 42.06211824039412, lng: -88.0464056911387 }; // Location of Zurich HQ - Scahumburg Campus
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 13,
-          center: zurichHQ,
-          mapTypeId: "roadmap"
-        });
-        // Add traffic layer
-        const trafficLayer = new google.maps.TrafficLayer();
-        trafficLayer.setMap(map);
-        // Optional: Add marker for Zurich HQ
-        new google.maps.Marker({
-          position: zurichHQ,
-          map: map,
-          title: "Zurich Insurance Group HQ"
-        });
-      }
-    </script>
-  </head>
-  <body onload="initMap()">
-    <div id="map"></div>
-  </body>
+<head>
+<title>Zurich HQ Traffic Map</title>
+<meta charset="utf-8">
+<style>
+   #map {
+     height: 100vh;
+     width: 100%;
+   }
+</style>
+<script src="https://maps.googleapis.com/maps/api/js?key=<YOUR_API_KEY>"></script>
+<script>
+   function initMap() {
+     const zurichHQ = { lat: 42.06211824039412, lng: -88.0464056911387 }; // Zurich HQ
+     const map = new google.maps.Map(document.getElementById("map"), {
+       zoom: 13,
+       center: zurichHQ,
+       mapTypeId: "roadmap"
+     });
+     // Add traffic layer
+     const trafficLayer = new google.maps.TrafficLayer();
+     trafficLayer.setMap(map);
+     // Add custom building marker
+     new google.maps.Marker({
+       position: zurichHQ,
+       map: map,
+       title: "Zurich Insurance Group HQ",
+       icon: {
+         url: "https://cdn-icons-png.flaticon.com/512/684/684908.png", // 🏢 Building icon
+         scaledSize: new google.maps.Size(40, 40) // resize icon
+       }
+     });
+   }
+</script>
+</head>
+<body onload="initMap()">
+<div id="map"></div>
+</body>
 </html>
