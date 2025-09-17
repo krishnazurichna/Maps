@@ -28,9 +28,16 @@
        title: "Zurich Insurance Group HQ",
        icon: {
          url: "./zurich_center.png", 
-         scaledSize: new google.maps.Size(60, 60)
+         scaledSize: new google.maps.Size(80, 80)
        }
      });
+      // "Zurich Center" label under the marker
+     const labelWindow = new google.maps.InfoWindow({
+     content: `<div style="text-align:center; font-size:14px; font-weight:bold; color:#003366;">Zurich Center</div>`,
+     position: zurichHQ,
+     pixelOffset: new google.maps.Size(0, 30) // pushes label below icon
+   });
+   labelWindow.open(map, marker);
    }
 </script>
 </head>
@@ -38,4 +45,5 @@
 <div id="map"></div>
 </body>
 </html>
+
 
