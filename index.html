@@ -4,40 +4,64 @@
 <title>Zurich HQ Traffic Map</title>
 <meta charset="utf-8">
 <style>
-   #map {
-     height: 100vh;
-     width: 100%;
-   }
+ #map {
+   height: 100vh;
+   width: 100%;
+ }
+ /* Widget styles */
+ .widget {
+   position: absolute;
+   right: 20px;
+   background: white;
+   padding: 10px 15px;
+   border-radius: 8px;
+   font-family: sans-serif;
+   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+ }
+ #clock { top: 20px; }
+ #info  { top: 80px; }
 </style>
 <script src="https://urldefense.com/v3/__https://maps.googleapis.com/maps/api/js?key=__;!!G6MNE2S8Nw!l34qgaAJTvjE0NVI2VYEV3HbKYXQcV-Sg4TepDOLHjHf8XhHOTVTfkYz16MSah51Ba6zij_8YQ3sNKB_29VxXyk6I_2MJlY$ <your key>"></script>
 <script>
-   function initMap() {
-     const zurichHQ = { lat: 42.06211824039412, lng: -88.0464056911387 }; // Zurich HQ
-     const map = new google.maps.Map(document.getElementById("map"), {
-       zoom: 13,
-       center: zurichHQ,
-       mapTypeId: "roadmap"
-     });
-     // Add traffic layer
-     const trafficLayer = new google.maps.TrafficLayer();
-     trafficLayer.setMap(map);
-     // Add custom building marker
-     new google.maps.Marker({
-       position: zurichHQ,
-       map: map,
-       title: "Zurich Insurance Group HQ",
-       icon: {
-         url: "./zurich_center.png", 
-         scaledSize: new google.maps.Size(80, 80),
-         anchor: new google.maps.Point(40,80)
-       }
-     });
-   }
+ function initMap() {
+   const zurichHQ = { lat: 42.06211824039412, lng: -88.0464056911387 };
+   const map = new google.maps.Map(document.getElementById("map"), {
+     zoom: 13,
+     center: zurichHQ,
+     mapTypeId: "roadmap"
+   });
+   // Add traffic layer
+   const trafficLayer = new google.maps.TrafficLayer();
+   trafficLayer.setMap(map);
+   // Add custom building marker
+   new google.maps.Marker({
+     position: zurichHQ,
+     map: map,
+     title: "Zurich Insurance Group HQ",
+     icon: {
+       url: "./zurich_center.png",
+       scaledSize: new google.maps.Size(80, 80),
+       anchor: new google.maps.Point(40, 80)
+     }
+   });
+ }
+ // Clock widget
+ function updateClock() {
+   const now = new Date();
+   document.getElementById("clock").innerText =
+     now.toLocaleTimeString("en-US", { timeZone: "America/Chicago" });
+ }
+ setInterval(updateClock, 1000);
 </script>
 </head>
-<body onload="initMap()">
+<body onload="initMap(); updateClock();">
 <div id="map"></div>
+<!-- Overlays -->
+<div id="clock" class="widget"></div>
+<div id="info" class="widget">
+<b>Zurich HQ Info</b><br>
+   📍 Schaumburg, IL<br>
+   🏢 Zurich Insurance Group
+</div>
 </body>
 </html>
-
-
